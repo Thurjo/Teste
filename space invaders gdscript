@@ -1,0 +1,8 @@
+#começo do codigo do jogo
+extends Sprite2D
+
+func _ready():
+  print("a nave esta pronta")
+  
+func _process(delta):
+  position.x = position.x + 100 * delta
