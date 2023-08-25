@@ -1,8 +1,20 @@
 #começo do codigo do jogo
-extends Sprite2D
+extends Sprite
 
+var velocidade = 100
+
+
+#Ao abrir o jogo, o godot carrega um objeto, e ele executa esse código dentro da ready
 func _ready():
-  print("a nave esta pronta")
-  
+	print("Iniciando decolagem")
+	pass # Replace with function body.
+
+#process eh chamado a cada frame do jogo
+#delta serve para contar quanto tempo se passou desde a ultima vez que ele executou a funcao
+#position.x eh a posicao do objeto
+#utilizei 
 func _process(delta):
-  position.x = position.x + 100 * delta
+	if Input.is_action_pressed("ui_left"):
+		position.x = position.x - velocidade * delta
+	elif Input.is_action_pressed("ui_right"):
+		position.x = position.x + velocidade * delta
