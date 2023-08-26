@@ -1,0 +1,40 @@
+extends Sprite
+
+#export serve para alterar a velocidade pelo inspetor, para nao ter que ficar mexendo no codigo demais
+#util para o caso de ter outras pessoas no projeto que nao entendam tanto
+export var velocidade = 300
+
+#essa parte serve para por a cena do laser na nave
+var laser_res = load("res://LaserJogador.tscn")
+
+
+#Ao abrir o jogo, o godot carrega um objeto, e ele executa esse código dentro da ready
+func _ready():
+	
+	print("Iniciando decolagem")
+	pass # Replace with function body.
+
+
+#process eh chamado a cada frame do jogo
+#delta serve para contar quanto tempo se passou desde a ultima vez que ele executou a funcao
+#position.x eh a posicao do objeto
+#utilizei 
+func _process(delta):
+	if Input.is_action_pressed("ui_left"):
+		position.x -= velocidade * delta
+		#position.x = position.x - velocidade * delta
+	elif Input.is_action_pressed("ui_right"):
+		position.x += velocidade * delta
+		#position.x = position.x + velocidade * delta
+	elif Input.is_action_pressed("ui_up"):
+		position.y -= velocidade * delta
+	elif Input.is_action_pressed("ui_down"):
+		position.y += velocidade * delta
+	
+#O just serve para fazer a cada vez que voce apertar tal tecla a acao vai ocorrer
+#assim ficar pressionando o espaco nao vai fazer nada, tem que apertar
+	if Input.is_action_just_pressed("ui_select"):
+		var laser = laser_res.instance()
+		get_tree().current_scene.add_child(laser)
+		laser.position = position + Vector2(0, -20)
+		laser.andando = true
