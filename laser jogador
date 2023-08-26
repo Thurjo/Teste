@@ -1,0 +1,18 @@
+#bloco de codigo do laser do jogador
+extends Area2D
+
+var velocidade = 500
+var andando = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if andando:
+		position.y -= velocidade * delta
+		if position.y < - 100:
+			queue_free()
+	pass
