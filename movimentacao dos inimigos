@@ -1,0 +1,29 @@
+extends Area2D
+
+var velocidade = 200
+var pulo = 70
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	position.x += velocidade * delta
+	if position.x > 1024:
+		position.x -= 5
+		velocidade = - velocidade
+		position.y += pulo
+	elif position.x < 0:
+		position.x += 5
+		velocidade = - velocidade
+		position.y += pulo
+
+
+
+func _on_inimigo_area_entered(area):
+	if is_instance_valid(area):
+		area.queue_free()
+	if is_instance_valid(self):
+		queue_free()
