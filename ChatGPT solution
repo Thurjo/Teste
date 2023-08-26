@@ -1,4 +1,4 @@
-#segunda versao do codigo para fazer a nave andar
+#segunda versao do codigo para fazer a nave andar feita pela gpt
 func get_input_direction():
 	var dir = Vector2()
 	if Input.is_action_pressed("ui_left"):
