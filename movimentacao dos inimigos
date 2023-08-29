@@ -1,6 +1,6 @@
 extends Area2D
 
-var velocidade = 200
+export var velocidade = 200
 var pulo = 70
 
 # Called when the node enters the scene tree for the first time.
