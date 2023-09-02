@@ -3,11 +3,9 @@ extends Sprite
 #export serve para alterar a velocidade pelo inspetor, para nao ter que ficar mexendo no codigo demais
 #util para o caso de ter outras pessoas no projeto que nao entendam tanto
 export var velocidade = 300
-var jogador
 
 #essa parte serve para por a cena (animacao) do laser na nave
 var laser_res = load("res://LaserJogador.tscn")
-
 
 #Ao abrir o jogo, o godot carrega um objeto, e ele executa esse código dentro da ready
 func _ready():
@@ -47,3 +45,18 @@ func _process(delta):
 #funcao que permite que o jogador atire de novo apos o timer
 func _on_recarga_timeout():
 	recarregado = true
+
+
+#parte do codigo que destroi o jogador ao colidir com o inimigo
+func _on_Area2D_area_entered(area):
+	if is_instance_valid(area):
+		area.queue_free()
+	if is_instance_valid(self):
+		queue_free()
+
+#func _on_inimigo_body_entered(body):
+	#if body.is_in_group("inimigo"):
+		#if is_instance_valid(body):
+			#body.queue_free()
+		#if is_instance_valid(self):
+			#queue_free()
