@@ -21,9 +21,13 @@ func _process(delta):
 		position.y += pulo
 
 
-
 func _on_inimigo_area_entered(area):
 	if is_instance_valid(area):
 		area.queue_free()
 	if is_instance_valid(self):
 		queue_free()
+
+
+#func _on_inimigo_body_entered(body):
+	#if body.is_in_group("Nave"):
+		#body.dano()
