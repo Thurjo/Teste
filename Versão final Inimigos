@@ -1,0 +1,31 @@
+extends Area2D
+
+export var velocidade = 200
+var pulo = 70
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+#funcao que faz os inimigos andarem e mudarem de diracao ao colidir na parede
+func _process(delta):
+	position.x += velocidade * delta 
+	if position.x > 1000:
+		position.x -= 5
+		velocidade = - velocidade
+		position.y += pulo
+	elif position.x < 0:
+		position.x += 5
+		velocidade = - velocidade
+		position.y += pulo
+
+#funcao feita para o dano que os inimigos tomam, tanto com o laser quanto com o jogador
+func _on_inimigo_area_entered(area):
+	if is_instance_valid(area):
+		area.queue_free() #destroi a area que colidir com ele
+		print("colisao ocorreu")
+	if is_instance_valid(self):	
+		queue_free() #destroi ele mesmo ao colidir com outra area
+		Global.pontos += 10 #pontos adicionados ao matar 1
+		print("ih rapz")
