@@ -3,6 +3,9 @@ extends Sprite
 #export serve para alterar a velocidade pelo inspetor, para nao ter que ficar mexendo no codigo demais
 #util para o caso de ter outras pessoas no projeto que nao entendam tanto
 export var velocidade = 300
+var recarregado = true #variavel de recarga dos tiros
+var morto = true
+#var vida = 3
 
 #essa parte serve para por a cena (animacao) do laser na nave
 var laser_res = load("res://LaserJogador.tscn")
@@ -12,13 +15,10 @@ func _ready():
 	print("Iniciando decolagem")
 	pass # Replace with function body.
 
-#variavel de recarga dos tiros
-var recarregado = true
 
 #process eh chamado a cada frame do jogo
 #delta serve para contar quanto tempo se passou desde a ultima vez que ele executou a funcao
-#position.x eh a posicao do objeto
-#utilizei 
+#position.x/y eh a posicao do objeto em relacao a x e y
 func _process(delta):
 	if Input.is_action_pressed("ui_left"):
 		position.x -= velocidade * delta
@@ -26,21 +26,22 @@ func _process(delta):
 	elif Input.is_action_pressed("ui_right"):
 		position.x += velocidade * delta
 		#position.x = position.x + velocidade * delta
-	elif Input.is_action_pressed("ui_up"):
-		position.y -= velocidade * delta
-	elif Input.is_action_pressed("ui_down"):
-		position.y += velocidade * delta
-	
+	#elif Input.is_action_pressed("ui_up"):
+		#position.y -= velocidade * delta
+	#elif Input.is_action_pressed("ui_down"):
+		#position.y += velocidade * delta
 	
 #O just serve para fazer a cada vez que voce apertar tal tecla a acao vai ocorrer
 #assim ficar pressionando o espaco nao vai fazer nada, tem que apertar
-	if Input.is_action_just_pressed("ui_select") and recarregado:
+	if Input.is_action_just_pressed("ui_select") and recarregado and morto:
 		var laser = laser_res.instance()
 		get_tree().current_scene.add_child(laser)
 		laser.position = position + Vector2(0, -20)
 		laser.andando = true
 		recarregado = false #proibe que o jogador atire antes do timer acabar
 		$recarga.start() #aqui faz o timer correr apos o disparo
+	if morto == true:
+		pass
 
 #funcao que permite que o jogador atire de novo apos o timer
 func _on_recarga_timeout():
@@ -49,14 +50,8 @@ func _on_recarga_timeout():
 
 #parte do codigo que destroi o jogador ao colidir com o inimigo
 func _on_Area2D_area_entered(area):
-	if is_instance_valid(area):
-		area.queue_free()
-	if is_instance_valid(self):
-		queue_free()
-
-#func _on_inimigo_body_entered(body):
-	#if body.is_in_group("inimigo"):
-		#if is_instance_valid(body):
-			#body.queue_free()
-		#if is_instance_valid(self):
-			#queue_free()
+	if area.is_in_group("inimigo"):
+		visible = false
+		morto = true
+		yield(get_tree().create_timer(1), "timeout") #da um tempo de 1 segundo para rodar essa cena
+		get_tree().change_scene("res://Game_Over.tscn")
