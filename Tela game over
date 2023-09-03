@@ -1,0 +1,11 @@
+extends Node2D
+
+#Cena de game over
+#volta ao menu ao selecionar o botao
+func _on_Menu_pressed():
+	get_tree().change_scene("res://Menu.tscn")
+
+
+#fecha o jogo ao selecionar o botao
+func _on_Quit_pressed():
+	get_tree().quit()
