@@ -1,0 +1,11 @@
+extends Node2D
+
+#cena de menu principal
+#Ao apertar start comeca o jogo
+func _on_Start_pressed():
+	get_tree().change_scene("res://game.tscn")
+	Global.pontos = 0
+
+#ao apertar quit sai do jogo
+func _on_Quit_pressed():
+	get_tree().quit()
