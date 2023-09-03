@@ -1,0 +1,20 @@
+extends Timer
+var inimigo_cena = preload("res://Inimigo.tscn")
+
+func _ready(): #funcao que ao iniciar o jogo comeca a rodar o time
+	start()
+	
+
+#funcao feita para spawnar inimigos no mapa
+func _on_spaw_inimigos_timeout():
+	var inimigo = inimigo_cena.instance()
+	add_child(inimigo)
+#parte feita para que com o passar do tempo aparecam cada vez mais
+	if wait_time > 0.50:
+		wait_time -= 0.10
+		if Global.pontos == 10000: #ao atingir 10000 pontos o spaw para
+			stop()
+			get_tree().change_scene("res://Game_Over.tscn")
+
+func _on_Timer_dificuldade_timeout():
+	pass # Replace with function body.
