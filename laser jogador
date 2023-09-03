@@ -15,4 +15,3 @@ func _process(delta):
 		position.y -= velocidade * delta
 		if position.y < - 100:
 			queue_free()
-	pass
