@@ -1,0 +1,11 @@
+extends Label
+
+#funcao para a contagem do recorde
+func _ready():
+	text = String(Global.recorde)
+	
+#armazena o recorde total e deixa guardado
+func _process(delta):
+	text = String(Global.pontos)
+	if Global.pontos > Global.recorde:
+		Global.recorde = Global.pontos
