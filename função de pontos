@@ -1,0 +1,5 @@
+extends Label
+
+#funcao dos pontos que o jogador acumula
+func _process(delta):
+	text = String(Global.pontos)
